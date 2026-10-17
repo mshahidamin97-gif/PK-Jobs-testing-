@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pk jobs &bull; Pakistan's Premier Tech Job Portal & Preparation</title>
+  <meta name="description" content="Pk jobs - Pakistan's unified tech job portal and placement preparation platform. Curated software jobs, aptitude formulas, company hiring patterns, and topic-wise DSA sheet.">
+  
+  <!-- Modern Typography (Plus Jakarta Sans & JetBrains Mono) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/portal.css">
+  <link rel="stylesheet" href="styles/prep.css">
+  <link rel="stylesheet" href="styles/companies.css">
+  <link rel="stylesheet" href="styles/dsa.css">
+</head>
+<body>
+
+  <!-- Top Glassmorphic Navigation -->
+  <header class="header">
+    <div class="nav-container">
+      <div class="brand" onclick="App.navigateTo('jobs')">
+        <div class="brand-icon"><i class="fa-solid fa-briefcase"></i></div>
+        <div>
+          <span class="brand-title">Pk jobs</span>
+          <span class="brand-badge">PK</span>
+        </div>
+      </div>
+
+      <nav>
+        <ul class="nav-links">
+          <li class="nav-item">
+            <button class="nav-btn active" data-tab="jobs">
+              <i class="fa-solid fa-briefcase"></i> Job Portal
+            </button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-btn" data-tab="prep">
+              <i class="fa-solid fa-graduation-cap"></i> Preparation
+            </button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-btn" data-tab="companies">
+              <i class="fa-solid fa-building"></i> Company Patterns
+            </button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-btn" data-tab="dsa">
+              <i class="fa-solid fa-code"></i> DSA Sheet
+            </button>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <!-- Prominent Light / Dark Mode Toggle Button -->
+        <button id="themeToggleBtn" class="theme-toggle-btn" title="Toggle Light / Dark Mode" aria-label="Toggle Theme">
+          <span class="theme-toggle-track">
+            <i class="fa-solid fa-moon"></i>
+            <i class="fa-solid fa-sun"></i>
+            <span class="theme-toggle-thumb"></span>
+          </span>
+          <span id="themeToggleLabel" class="theme-label-text">Dark Mode</span>
+        </button>
+
+        <!-- Sign In Button Container -->
+        <div id="userAuthContainer">
+          <button class="btn-sign-in" onclick="AuthComponent.openModal('login')">
+            <i class="fa-solid fa-user-circle"></i> <span>Sign In</span>
+          </button>
+        </div>
+
+        <button class="btn-primary" onclick="App.navigateTo('dsa')">
+          <i class="fa-solid fa-terminal"></i> Start Prep
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Wrapper -->
+  <main class="main-wrapper">
+    <!-- Top Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <div class="hero-pill">
+          <i class="fa-solid fa-bolt"></i> <span>Pakistan's #1 Tech Career & Placement Hub</span>
+        </div>
+        <h1 class="hero-title">
+          Land Your Dream Tech Job with <span>Pk jobs</span>
+        </h1>
+        <p class="hero-desc">
+          Unified platform combining top software opportunities across Pakistan (Lahore, Karachi, Islamabad & Remote), aptitude formulas, core CS fundamentals, company exam patterns, and a topic-wise DSA sheet with runnable solutions.
+        </p>
+
+        <div class="hero-stats">
+          <div class="stat-item">
+            <span class="stat-num" id="heroJobsCount">8+</span>
+            <span class="stat-label">Active Job Openings</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num" id="heroCompaniesCount">6+</span>
+            <span class="stat-label">Company Exam Blueprints</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num" id="heroDsaCount">12+</span>
+            <span class="stat-label">Curated DSA Problems</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num" id="heroSolvedCount">0</span>
+            <span class="stat-label">Problems Mastered</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 1: JOB PORTAL -->
+    <section id="tab-jobs" class="tab-content active">
+      <div class="portal-layout">
+        <!-- Sidebar Filters -->
+        <aside class="filters-sidebar">
+          <div class="filters-header">
+            <h3><i class="fa-solid fa-filter"></i> Filters</h3>
+            <button class="btn-reset-filters" id="btnResetJobFilters">Reset All</button>
+          </div>
+
+          <div class="filter-group">
+            <label class="filter-label" for="jobCategorySelect">Role Category</label>
+            <select id="jobCategorySelect" class="filter-select">
+              <option value="all">All Domains</option>
+              <option value="Software Engineering">Software Engineering</option>
+              <option value="Frontend">Frontend Development</option>
+              <option value="Backend">Backend Engineering</option>
+              <option value="Full Stack">Full Stack</option>
+              <option value="Data Science & AI">Data Science & AI</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label class="filter-label" for="jobExpSelect">Experience Level</label>
+            <select id="jobExpSelect" class="filter-select">
+              <option value="all">Any Experience</option>
+              <option value="fresher">Fresher / 0-1 yr</option>
+              <option value="1-3">1 - 3 yrs Experience</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label class="filter-label">Job Type</label>
+            <div class="filter-checkboxes">
+              <label class="custom-checkbox">
+                <input type="checkbox" value="Full-time" class="filter-job-type">
+                <span>Full-time Positions</span>
+              </label>
+              <label class="custom-checkbox">
+                <input type="checkbox" value="Internship" class="filter-job-type">
+                <span>Internships / PPOs</span>
+              </label>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Main Portal Feed -->
+        <div class="portal-main">
+          <div class="portal-header">
+            <div class="search-box">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" id="jobSearchInput" placeholder="Search by job title, company (Google, Amazon), skill (React, Java)...">
+            </div>
+
+            <div class="portal-subnav">
+              <div class="quick-tabs">
+                <button class="quick-tab-btn job-subtab-btn active" data-subtab="all">
+                  <i class="fa-solid fa-border-all"></i> All Listings
+                </button>
+                <button class="quick-tab-btn job-subtab-btn" data-subtab="saved">
+                  <i class="fa-solid fa-bookmark"></i> Saved Jobs
+                </button>
+                <button class="quick-tab-btn job-subtab-btn" data-subtab="applied">
+                  <i class="fa-solid fa-paper-plane"></i> My Applications
+                </button>
+              </div>
+
+              <span class="results-meta" id="jobsResultsCount">Loading jobs...</span>
+            </div>
+          </div>
+
+          <!-- Jobs Grid -->
+          <div class="jobs-grid" id="jobsGridContainer">
+            <!-- Jobs rendered by JobsComponent -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: PREPARATION [ Aptitude, DSA, Technical, HR ] -->
+    <section id="tab-prep" class="tab-content">
+      <div class="prep-header">
+        <h2 style="font-size: 1.8rem; font-weight: 800; margin-bottom: 0.5rem;">Placement Preparation Hub</h2>
+        <p style="color: var(--text-muted); font-size: 1rem;">Comprehensive study notes, cheat sheets, and interactive practice problems for every round.</p>
+      </div>
+
+      <!-- Sub Navigation -->
+      <div class="prep-nav">
+        <button class="prep-tab-btn active" data-prep-section="aptitude">
+          <i class="fa-solid fa-calculator"></i> Aptitude (Quant, Logical, Verbal)
+        </button>
+        <button class="prep-tab-btn" data-prep-section="technical">
+          <i class="fa-solid fa-microchip"></i> Technical (OS, DBMS, CN, System Design)
+        </button>
+        <button class="prep-tab-btn" data-prep-section="hr">
+          <i class="fa-solid fa-users"></i> HR & Behavioral (STAR Method)
+        </button>
+      </div>
+
+      <!-- Prep Content Container -->
+      <div id="prepContentContainer">
+        <!-- Rendered by PrepComponent -->
+      </div>
+    </section>
+
+    <!-- TAB 3: COMPANIES HIRING PROCESS -->
+    <section id="tab-companies" class="tab-content">
+      <div class="companies-header">
+        <h2 style="font-size: 1.8rem; font-weight: 800; margin-bottom: 0.5rem;">Companies Hiring Process & Exam Patterns</h2>
+        <p style="color: var(--text-muted); font-size: 1rem;">Complete breakdown of exam formats, sectional syllabi, eligibility cut-offs, and archival interview questions for top tech recruiters.</p>
+      </div>
+
+      <!-- Companies Content Container -->
+      <div id="companiesContentContainer">
+        <!-- Rendered by CompaniesComponent -->
+      </div>
+    </section>
+
+    <!-- TAB 4: DEDICATED TOPIC-WISE DSA PREP SHEET -->
+    <section id="tab-dsa" class="tab-content">
+      <div style="margin-bottom: 2rem;">
+        <h2 style="font-size: 1.8rem; font-weight: 800; margin-bottom: 0.5rem;">Dedicated Topic-Wise DSA Preparation Sheet</h2>
+        <p style="color: var(--text-muted); font-size: 1rem;">Curated SDE sheet with multi-language solutions (Python, C++, Java, JS), complexity analysis, and an in-browser code runner.</p>
+      </div>
+
+      <div id="dsaContentContainer">
+        <!-- Rendered by DsaComponent -->
+      </div>
+    </section>
+  </main>
+
+  <!-- MODAL: Job Details -->
+  <dialog id="jobDetailsModal" aria-labelledby="jobDetailsModalTitle">
+    <div class="modal-header">
+      <h3 class="modal-title" id="jobDetailsModalTitle">Job Details</h3>
+      <button class="modal-close" onclick="document.getElementById('jobDetailsModal').close()" aria-label="Close modal">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <div class="modal-body" id="jobDetailsModalContent">
+      <!-- Injected by JobsComponent -->
+    </div>
+  </dialog>
+
+  <!-- MODAL: Apply for Job -->
+  <dialog id="applyJobModal" aria-labelledby="applyModalJobTitle">
+    <div class="modal-header">
+      <h3 class="modal-title" id="applyModalJobTitle">Submit Application</h3>
+      <button class="modal-close" onclick="document.getElementById('applyJobModal').close()" aria-label="Close modal">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form class="apply-form" onsubmit="JobsComponent.submitApplication(event)">
+        <input type="hidden" id="applyJobHiddenId">
+
+        <div class="form-row">
+          <div class="form-field">
+            <label for="applicantName">Full Name *</label>
+            <input type="text" id="applicantName" placeholder="e.g. Alex Sharma" required>
+          </div>
+          <div class="form-field">
+            <label for="applicantEmail">Email Address *</label>
+            <input type="email" id="applicantEmail" placeholder="alex@example.com" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label for="applicantPhone">Phone Number</label>
+            <input type="tel" id="applicantPhone" placeholder="+91 98765 43210">
+          </div>
+          <div class="form-field">
+            <label for="applicantPortfolio">GitHub / Portfolio / LinkedIn URL</label>
+            <input type="url" id="applicantPortfolio" placeholder="https://github.com/username">
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label>Upload Resume / CV (PDF or DOCX)</label>
+          <div class="file-drop-area" onclick="document.getElementById('resumeFileInput').click()">
+            <i class="fa-solid fa-cloud-arrow-up"></i>
+            <div style="font-weight: 600; font-size: 0.95rem; color: var(--text-main);">Click or drop your resume here</div>
+            <div style="font-size: 0.8rem; color: var(--text-subtle); margin-top: 0.25rem;">Supports PDF, DOCX up to 5MB</div>
+            <input type="file" id="resumeFileInput" style="display: none;" accept=".pdf,.doc,.docx" onchange="App.showToast('Resume selected: ' + this.files[0].name, 'info')">
+          </div>
+        </div>
+
+        <div class="modal-footer" style="padding: 1.25rem 0 0; border-top: none;">
+          <button type="button" class="btn-secondary" onclick="document.getElementById('applyJobModal').close()">Cancel</button>
+          <button type="submit" class="btn-primary"><i class="fa-solid fa-paper-plane"></i> Submit Application</button>
+        </div>
+      </form>
+    </div>
+  </dialog>
+
+  <!-- MODAL: DSA Code Playground -->
+  <dialog id="dsaPlaygroundModal" style="max-width: 1100px; width: 95%;" aria-labelledby="playgroundModalTitle">
+    <div class="modal-header">
+      <h3 class="modal-title" id="playgroundModalTitle">Code Playground</h3>
+      <button class="modal-close" onclick="document.getElementById('dsaPlaygroundModal').close()" aria-label="Close playground">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <div class="modal-body" id="playgroundModalContent" style="padding: 1.25rem;">
+      <!-- Injected by DsaComponent -->
+    </div>
+  </dialog>
+
+  <!-- MODAL: Sign In / Create Account -->
+  <dialog id="authModal" style="max-width: 460px; width: 92%;" aria-labelledby="authModalTitle">
+    <div class="modal-header">
+      <h3 class="modal-title" id="authModalTitle">Sign In to Pk jobs</h3>
+      <button class="modal-close" onclick="document.getElementById('authModal').close()" aria-label="Close modal">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <div class="modal-body" style="padding: 1.5rem;">
+      <div class="auth-tabs">
+        <button type="button" class="auth-tab-btn active" id="tabAuthLogin" onclick="AuthComponent.switchTab('login')">
+          <i class="fa-solid fa-arrow-right-to-bracket"></i> Sign In
+        </button>
+        <button type="button" class="auth-tab-btn" id="tabAuthRegister" onclick="AuthComponent.switchTab('register')">
+          <i class="fa-solid fa-user-plus"></i> Create Account
+        </button>
+      </div>
+
+      <div class="social-auth-btns">
+        <button type="button" class="btn-social" onclick="AuthComponent.socialLogin('Google')">
+          <i class="fa-brands fa-google" style="color: #ea4335;"></i> Google
+        </button>
+        <button type="button" class="btn-social" onclick="AuthComponent.socialLogin('GitHub')">
+          <i class="fa-brands fa-github"></i> GitHub
+        </button>
+      </div>
+
+      <div class="auth-divider">Or continue with email</div>
+
+      <form onsubmit="AuthComponent.handleAuthSubmit(event)">
+        <div class="form-field" id="authNameField" style="display: none; margin-bottom: 1rem;">
+          <label for="authName">Full Name</label>
+          <input type="text" id="authName" placeholder="e.g. Ali Khan">
+        </div>
+
+        <div class="form-field" style="margin-bottom: 1rem;">
+          <label for="authEmail">Email Address</label>
+          <input type="email" id="authEmail" placeholder="candidate@example.com" required>
+        </div>
+
+        <div class="form-field" style="margin-bottom: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+            <label for="authPassword" style="margin: 0;">Password</label>
+            <a href="#" style="font-size: 0.78rem; color: var(--primary-light); text-decoration: none;" onclick="App.showToast('Password reset link sent to demo email', 'info'); return false;">Forgot?</a>
+          </div>
+          <input type="password" id="authPassword" placeholder="••••••••" required>
+        </div>
+
+        <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; padding: 0.75rem;">
+          <i class="fa-solid fa-lock-open"></i> <span id="authSubmitBtnText">Sign In to Pk jobs</span>
+        </button>
+      </form>
+    </div>
+  </dialog>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <!-- Scripts -->
+  <script src="js/data/jobsData.js"></script>
+  <script src="js/data/prepData.js"></script>
+  <script src="js/data/companiesData.js"></script>
+  <script src="js/data/dsaSheetData.js"></script>
+  <script src="js/components/jobs.js"></script>
+  <script src="js/components/prep.js"></script>
+  <script src="js/components/companies.js"></script>
+  <script src="js/components/dsa.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>
